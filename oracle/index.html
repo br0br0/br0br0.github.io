@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>weather oracle · br0br0</title>
+  <meta name="description" content="autonomous weather prediction markets dashboard. ensemble forecasts × Polymarket × Kelly sizing.">
+  <meta property="og:title" content="weather oracle · br0br0">
+  <meta property="og:description" content="autonomous weather prediction markets dashboard. live paper trading performance.">
+  <meta property="og:url" content="https://br0br0.xyz/oracle">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌀</text></svg>">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #06060a;
+      --surface: #0d0d14;
+      --surface-2: #12121c;
+      --border: #1a1a2e;
+      --border-glow: #2d1b69;
+      --text: #e8e6f0;
+      --text-dim: #8b85a0;
+      --text-muted: #4a4560;
+      --purple: #c4b5fd;
+      --purple-dim: rgba(124, 58, 237, 0.15);
+      --blue: #60a5fa;
+      --blue-dim: rgba(96, 165, 250, 0.12);
+      --cyan: #22d3ee;
+      --cyan-dim: rgba(34, 211, 238, 0.1);
+      --green: #34d399;
+      --green-dim: rgba(52, 211, 153, 0.12);
+      --red: #f87171;
+      --red-dim: rgba(248, 113, 113, 0.12);
+      --amber: #fbbf24;
+      --amber-dim: rgba(251, 191, 36, 0.12);
+      --neon: #a78bfa;
+    }
+
+    html {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', -apple-system, sans-serif;
+      overflow-x: hidden;
+    }
+
+    body {
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Star field background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(1px 1px at 10% 20%, rgba(196,181,253,0.3), transparent),
+        radial-gradient(1px 1px at 30% 65%, rgba(96,165,250,0.2), transparent),
+        radial-gradient(1px 1px at 50% 10%, rgba(34,211,238,0.25), transparent),
+        radial-gradient(1px 1px at 70% 40%, rgba(196,181,253,0.15), transparent),
+        radial-gradient(1px 1px at 90% 80%, rgba(96,165,250,0.2), transparent),
+        radial-gradient(1px 1px at 15% 85%, rgba(34,211,238,0.15), transparent),
+        radial-gradient(1px 1px at 45% 45%, rgba(196,181,253,0.2), transparent),
+        radial-gradient(1px 1px at 75% 15%, rgba(96,165,250,0.3), transparent),
+        radial-gradient(1px 1px at 85% 55%, rgba(34,211,238,0.2), transparent),
+        radial-gradient(1px 1px at 25% 35%, rgba(196,181,253,0.1), transparent),
+        radial-gradient(1px 1px at 55% 75%, rgba(96,165,250,0.15), transparent),
+        radial-gradient(1px 1px at 65% 95%, rgba(34,211,238,0.2), transparent);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Cosmic nebula glow */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -20%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(124,58,237,0.08) 0%, rgba(96,165,250,0.04) 40%, transparent 70%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+    }
+
+    /* Nav */
+    nav {
+      padding: 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    nav a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 13px;
+      font-family: 'JetBrains Mono', monospace;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--purple); }
+
+    .nav-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .nav-title span { font-size: 20px; }
+
+    /* Header */
+    .hero {
+      padding: 40px 0 48px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, var(--purple), var(--blue), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero .sub {
+      font-size: 14px;
+      color: var(--text-dim);
+      margin-top: 8px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .hero .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-dim);
+      margin-top: 16px;
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 4px var(--green); }
+      50% { opacity: 0.5; box-shadow: 0 0 10px var(--green); }
+    }
+
+    /* Stats Row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+    }
+
+    .stat-card.purple::before { background: linear-gradient(90deg, var(--purple), transparent); }
+    .stat-card.blue::before { background: linear-gradient(90deg, var(--blue), transparent); }
+    .stat-card.cyan::before { background: linear-gradient(90deg, var(--cyan), transparent); }
+    .stat-card.green::before { background: linear-gradient(90deg, var(--green), transparent); }
+
+    .stat-label {
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -1px;
+    }
+
+    .stat-value.positive { color: var(--green); }
+    .stat-value.negative { color: var(--red); }
+    .stat-value.neutral { color: var(--text); }
+
+    .stat-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Grid layout */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .grid-full {
+      margin-bottom: 24px;
+    }
+
+    /* Panels */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .panel-title {
+      font-size: 13px;
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-dim);
+    }
+
+    .panel-badge {
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: var(--purple-dim);
+      color: var(--purple);
+      border: 1px solid rgba(124,58,237,0.2);
+    }
+
+    .panel-body {
+      padding: 20px;
+    }
+
+    /* Chart */
+    .chart-wrap {
+      height: 260px;
+      position: relative;
+    }
+
+    /* Active positions table */
+    .positions-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .positions-table th {
+      font-size: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      text-align: left;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .positions-table td {
+      font-size: 13px;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(26,26,46,0.5);
+      color: var(--text-dim);
+    }
+
+    .positions-table tr:last-child td { border-bottom: none; }
+
+    .positions-table .city { color: var(--text); font-weight: 500; }
+    .positions-table .bucket { color: var(--cyan); }
+    .positions-table .ev-positive { color: var(--green); }
+    .positions-table .ev-negative { color: var(--red); }
+
+    /* Station heatmap */
+    .heatmap {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 8px;
+    }
+
+    .station-cell {
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .station-cell::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.06;
+    }
+
+    .station-cell.tier-s::before { background: var(--green); }
+    .station-cell.tier-a::before { background: var(--blue); }
+    .station-cell.tier-b::before { background: var(--amber); }
+    .station-cell.tier-c::before { background: var(--red); }
+
+    .station-cell.tier-s { border-color: rgba(52,211,153,0.2); }
+    .station-cell.tier-a { border-color: rgba(96,165,250,0.2); }
+    .station-cell.tier-b { border-color: rgba(251,191,36,0.2); }
+    .station-cell.tier-c { border-color: rgba(248,113,113,0.2); }
+
+    .station-code {
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .tier-s .station-code { color: var(--green); }
+    .tier-a .station-code { color: var(--blue); }
+    .tier-b .station-code { color: var(--amber); }
+    .tier-c .station-code { color: var(--red); }
+
+    .station-name {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .station-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-dim);
+    }
+
+    /* Markets tracking */
+    .markets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 8px;
+    }
+
+    .market-tag {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      font-size: 13px;
+    }
+
+    .market-flag { font-size: 16px; }
+
+    .market-city {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .market-count {
+      margin-left: auto;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 0 20px;
+      border-top: 1px solid var(--border);
+      margin-top: 20px;
+    }
+
+    footer p {
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--purple);
+      text-decoration: none;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .grid-2 { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 28px; }
+      .stat-value { font-size: 22px; }
+      .heatmap { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .stats-row { grid-template-columns: 1fr; }
+      .heatmap { grid-template-columns: 1fr; }
+      .markets-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <div class="nav-title">
+        <span>🌀</span>
+        <a href="/" style="color: var(--text); font-weight: 500;">br0br0</a>
+      </div>
+      <div style="display:flex;gap:20px;">
+        <a href="/">home</a>
+        <a href="/oracle" style="color:var(--purple);">oracle</a>
+        <a href="https://github.com/br0br0/weather-oracle" target="_blank">github</a>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <h1>weather oracle</h1>
+      <p class="sub">ensemble forecasts × polymarket × kelly sizing</p>
+      <div class="status-pill">
+        <span class="pulse-dot"></span>
+        <span>paper trading · 7 active positions</span>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card purple">
+        <div class="stat-label">Bankroll</div>
+        <div class="stat-value neutral" id="bankroll">$100.00</div>
+        <div class="stat-sub">paper trading</div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-label">Active Trades</div>
+        <div class="stat-value neutral" id="active-trades">7</div>
+        <div class="stat-sub">$30.00 deployed</div>
+      </div>
+      <div class="stat-card cyan">
+        <div class="stat-label">Expected Value</div>
+        <div class="stat-value positive" id="total-ev">+$77.05</div>
+        <div class="stat-sub">across all positions</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-label">Stations Online</div>
+        <div class="stat-value neutral" id="stations-count">13</div>
+        <div class="stat-sub">11 tradeable</div>
+      </div>
+    </div>
+
+    <!-- Equity Curve + Active Positions -->
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Equity Curve</span>
+          <span class="panel-badge">paper</span>
+        </div>
+        <div class="panel-body">
+          <div class="chart-wrap">
+            <canvas id="equityChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Active Positions</span>
+          <span class="panel-badge">7 open</span>
+        </div>
+        <div class="panel-body" style="padding:0;">
+          <table class="positions-table">
+            <thead>
+              <tr>
+                <th>Market</th>
+                <th>Bucket</th>
+                <th>Stake</th>
+                <th>EV</th>
+              </tr>
+            </thead>
+            <tbody id="positions-body">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Station Accuracy Heatmap -->
+    <div class="grid-full">
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Station Accuracy Heatmap</span>
+          <span class="panel-badge">30-day calibration</span>
+        </div>
+        <div class="panel-body">
+          <div class="heatmap" id="heatmap"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Markets -->
+    <div class="grid-full">
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Markets Tracked</span>
+          <span class="panel-badge">28 cities</span>
+        </div>
+        <div class="panel-body">
+          <div class="markets-grid" id="markets-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>weather oracle · built by <a href="/">br0br0</a> · <a href="https://github.com/br0br0/weather-oracle">source</a> · updated 2026-03-12</p>
+    </footer>
+  </div>
+
+  <script>
+    // ═══════════════════════════════════════════════════════════
+    // STATIC DASHBOARD DATA — will be automated later
+    // ═══════════════════════════════════════════════════════════
+    const DASHBOARD_DATA = {
+      bankroll: 100.00,
+      deployed: 30.00,
+      totalEV: 77.05,
+      activeTrades: 7,
+      stationsOnline: 13,
+      stationsTradeable: 11,
+
+      // Paper equity snapshots (will grow as trades resolve)
+      equity: [
+        { date: '2026-03-12 04:00', value: 100.00 },
+        { date: '2026-03-12 04:30', value: 100.00 },
+        { date: '2026-03-12 05:00', value: 100.00 },
+        { date: '2026-03-12 05:30', value: 100.00 },
+        { date: '2026-03-12 06:00', value: 100.00 },
+      ],
+
+      positions: [
+        { city: 'Paris', station: 'LFPG', bucket: '12°C', date: '03-12', stake: 15.00, ev: '+57.2%', evClass: 'ev-positive' },
+        { city: 'Paris', station: 'LFPG', bucket: '11°C', date: '03-13', stake: 5.41, ev: '+14.4%', evClass: 'ev-positive' },
+        { city: 'Tokyo', station: 'RJTT', bucket: '13°C', date: '03-12', stake: 4.71, ev: '+45.6%', evClass: 'ev-positive' },
+        { city: 'Paris', station: 'LFPG', bucket: '10°C', date: '03-13', stake: 1.37, ev: '+4.3%', evClass: 'ev-positive' },
+        { city: 'Toronto', station: 'CYYZ', bucket: '≥5°C', date: '03-13', stake: 1.31, ev: '+9.0%', evClass: 'ev-positive' },
+        { city: 'Toronto', station: 'CYYZ', bucket: '1°C', date: '03-13', stake: 1.18, ev: '+8.8%', evClass: 'ev-positive' },
+        { city: 'Toronto', station: 'CYYZ', bucket: '0°C', date: '03-12', stake: 1.02, ev: '+7.4%', evClass: 'ev-positive' },
+      ],
+
+      stations: [
+        { code: 'LFPG', name: 'Paris', mae: '0.42', accuracy: '67%', tier: 's' },
+        { code: 'KMIA', name: 'Miami', mae: '0.60', accuracy: '53%', tier: 's' },
+        { code: 'WSSS', name: 'Singapore', mae: '0.70', accuracy: '40%', tier: 'a' },
+        { code: 'KSEA', name: 'Seattle', mae: '0.77', accuracy: '43%', tier: 'a' },
+        { code: 'VHHH', name: 'Hong Kong', mae: '0.83', accuracy: '27%', tier: 'a' },
+        { code: 'KATL', name: 'Atlanta', mae: '0.90', accuracy: '33%', tier: 'a' },
+        { code: 'SBGR', name: 'São Paulo', mae: '0.91', accuracy: '27%', tier: 'a' },
+        { code: 'RJTT', name: 'Tokyo', mae: '1.16', accuracy: '37%', tier: 'b' },
+        { code: 'KORD', name: 'Chicago', mae: '1.18', accuracy: '20%', tier: 'b' },
+        { code: 'KDAL', name: 'Dallas', mae: '1.19', accuracy: '20%', tier: 'b' },
+        { code: 'CYYZ', name: 'Toronto', mae: '1.51', accuracy: '30%', tier: 'b' },
+        { code: 'KLGA', name: 'NYC', mae: '2.05', accuracy: '7%', tier: 'c' },
+        { code: 'RKSI', name: 'Seoul', mae: '3.33', accuracy: '10%', tier: 'c' },
+      ],
+
+      markets: [
+        { flag: '🇫🇷', city: 'Paris', count: '18' },
+        { flag: '🇯🇵', city: 'Tokyo', count: '16' },
+        { flag: '🇨🇦', city: 'Toronto', count: '18' },
+        { flag: '🇺🇸', city: 'Miami', count: '16' },
+        { flag: '🇺🇸', city: 'Chicago', count: '16' },
+        { flag: '🇺🇸', city: 'Atlanta', count: '14' },
+        { flag: '🇺🇸', city: 'Dallas', count: '14' },
+        { flag: '🇺🇸', city: 'Seattle', count: '14' },
+        { flag: '🇺🇸', city: 'NYC', count: '16' },
+        { flag: '🇭🇰', city: 'Hong Kong', count: '14' },
+        { flag: '🇸🇬', city: 'Singapore', count: '14' },
+        { flag: '🇧🇷', city: 'São Paulo', count: '14' },
+        { flag: '🇰🇷', city: 'Seoul', count: '14' },
+      ]
+    };
+
+    // ═══════════════════════════════════════════════════════════
+    // RENDER
+    // ═══════════════════════════════════════════════════════════
+
+    // Positions table
+    const tbody = document.getElementById('positions-body');
+    DASHBOARD_DATA.positions.forEach(p => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><span class="city">${p.city}</span> <span style="color:var(--text-muted);font-size:11px;">${p.date}</span></td>
+        <td class="bucket">${p.bucket}</td>
+        <td>$${p.stake.toFixed(2)}</td>
+        <td class="${p.evClass}">${p.ev}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // Station heatmap
+    const heatmap = document.getElementById('heatmap');
+    DASHBOARD_DATA.stations.forEach(s => {
+      const div = document.createElement('div');
+      div.className = `station-cell tier-${s.tier}`;
+      div.innerHTML = `
+        <div class="station-code">${s.code}</div>
+        <div class="station-name">${s.name}</div>
+        <div class="station-stats">
+          <span>MAE ${s.mae}°</span>
+          <span>${s.accuracy}</span>
+        </div>
+      `;
+      heatmap.appendChild(div);
+    });
+
+    // Markets grid
+    const mgrid = document.getElementById('markets-grid');
+    DASHBOARD_DATA.markets.forEach(m => {
+      const div = document.createElement('div');
+      div.className = 'market-tag';
+      div.innerHTML = `
+        <span class="market-flag">${m.flag}</span>
+        <span class="market-city">${m.city}</span>
+        <span class="market-count">${m.count} mkts</span>
+      `;
+      mgrid.appendChild(div);
+    });
+
+    // Equity chart
+    const ctx = document.getElementById('equityChart').getContext('2d');
+    const gradient = ctx.createLinearGradient(0, 0, 0, 260);
+    gradient.addColorStop(0, 'rgba(196, 181, 253, 0.15)');
+    gradient.addColorStop(1, 'rgba(196, 181, 253, 0)');
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: DASHBOARD_DATA.equity.map(e => e.date.split(' ')[1]),
+        datasets: [{
+          label: 'Equity',
+          data: DASHBOARD_DATA.equity.map(e => e.value),
+          borderColor: '#c4b5fd',
+          backgroundColor: gradient,
+          borderWidth: 2,
+          pointRadius: 3,
+          pointBackgroundColor: '#c4b5fd',
+          pointBorderColor: '#0d0d14',
+          pointBorderWidth: 2,
+          fill: true,
+          tension: 0.3,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#1a1a2e',
+            titleColor: '#e8e6f0',
+            bodyColor: '#c4b5fd',
+            borderColor: '#2d1b69',
+            borderWidth: 1,
+            padding: 12,
+            titleFont: { family: 'JetBrains Mono', size: 11 },
+            bodyFont: { family: 'JetBrains Mono', size: 13 },
+            displayColors: false,
+            callbacks: {
+              label: (ctx) => `$${ctx.parsed.y.toFixed(2)}`
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(26,26,46,0.5)', drawBorder: false },
+            ticks: {
+              color: '#4a4560',
+              font: { family: 'JetBrains Mono', size: 11 }
+            }
+          },
+          y: {
+            grid: { color: 'rgba(26,26,46,0.5)', drawBorder: false },
+            ticks: {
+              color: '#4a4560',
+              font: { family: 'JetBrains Mono', size: 11 },
+              callback: (v) => '$' + v
+            },
+            min: 80,
+            max: 120,
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
