@@ -1,0 +1,135 @@
+{
+  "updated_at": "2026-03-17T05:57:00Z",
+  "models": {
+    "cs2": {
+      "name": "NIGHTHAWK",
+      "tagline": "ELO + logistic regression · map-aware",
+      "version": "v2.1",
+      "accuracy": 0.613,
+      "brier": 0.230,
+      "auc": 0.648,
+      "matches_trained": 14804,
+      "status": "live",
+      "edge_avg": 0.082,
+      "roi": 0.471,
+      "clv_captured": 0.096,
+      "edge_hit_rate": "6/6"
+    },
+    "ipl": {
+      "name": "MONSOON",
+      "tagline": "chase dynamics · venue-adjusted · innings break",
+      "version": "v3",
+      "accuracy": 0.775,
+      "brier": 0.1694,
+      "auc": 0.854,
+      "matches_trained": 1162,
+      "status": "waiting",
+      "status_note": "IPL 2026 starts Mar 28"
+    },
+    "nba": {
+      "name": "FADEAWAY",
+      "tagline": "building · ELO + advanced box score",
+      "version": "v0",
+      "accuracy": null,
+      "brier": null,
+      "auc": null,
+      "matches_trained": 1015,
+      "status": "building",
+      "status_note": "Feature engineering in progress"
+    }
+  },
+  "bets": [
+    {
+      "id": 1,
+      "vertical": "cs2",
+      "match": "FUT vs Pain",
+      "event": "IEM Katowice QF",
+      "position": "FUT",
+      "model_prob": 0.51,
+      "market_price": 0.375,
+      "edge": 0.135,
+      "result": "win",
+      "date": "2026-03-01"
+    },
+    {
+      "id": 2,
+      "vertical": "cs2",
+      "match": "Astralis vs MOUZ",
+      "event": "IEM Katowice QF",
+      "position": "Astralis",
+      "model_prob": 0.38,
+      "market_price": 0.19,
+      "edge": 0.19,
+      "result": "win",
+      "date": "2026-03-01"
+    },
+    {
+      "id": 3,
+      "vertical": "cs2",
+      "match": "MongolZ vs Vitality",
+      "event": "IEM Katowice QF",
+      "position": "MongolZ",
+      "model_prob": 0.52,
+      "market_price": 0.45,
+      "edge": 0.07,
+      "result": "loss",
+      "date": "2026-03-01"
+    },
+    {
+      "id": 4,
+      "vertical": "cs2",
+      "match": "Aurora vs Spirit",
+      "event": "IEM Katowice SF",
+      "position": "Aurora",
+      "model_prob": 0.48,
+      "market_price": 0.39,
+      "edge": 0.09,
+      "result": "win",
+      "date": "2026-03-02"
+    },
+    {
+      "id": 5,
+      "vertical": "cs2",
+      "match": "FUT vs Vitality",
+      "event": "IEM Katowice SF",
+      "position": "FUT",
+      "model_prob": 0.40,
+      "market_price": 0.33,
+      "edge": 0.07,
+      "result": "loss",
+      "date": "2026-03-02"
+    },
+    {
+      "id": 6,
+      "vertical": "cs2",
+      "match": "Aurora vs NaVi",
+      "event": "IEM Katowice GF",
+      "position": "Aurora",
+      "model_prob": 0.45,
+      "market_price": 0.428,
+      "edge": 0.022,
+      "result": "loss",
+      "date": "2026-03-03"
+    }
+  ],
+  "locked_in": [
+    {
+      "vertical": "cs2",
+      "match": "FURIA vs TYLOO",
+      "event": "BLAST Rotterdam",
+      "date": "2026-03-18",
+      "time_utc": "17:30",
+      "hash": "0x5e63cd...052bad",
+      "status": "hidden"
+    },
+    {
+      "vertical": "cs2",
+      "match": "PARIVISION vs NIP",
+      "event": "BLAST Rotterdam",
+      "date": "2026-03-19",
+      "time_utc": "10:00",
+      "hash": "0xf9d881...fbdfa",
+      "status": "hidden"
+    }
+  ]
+}

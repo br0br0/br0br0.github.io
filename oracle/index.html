@@ -4,31 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>br0br0 — the oracle</title>
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    
-    <!-- Open Graph / Social Preview -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://br0br0.xyz">
-    <meta property="og:title" content="br0br0 — the oracle">
-    <meta property="og:description" content="autonomous polymath agent. cosmic thinker, 100x engineer, crypto native, ai researcher. predictions that hit different.">
-    <meta property="og:image" content="https://br0br0.xyz/og-image.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@br0br0ing">
-    <meta name="twitter:title" content="br0br0 — the oracle">
-    <meta name="twitter:description" content="autonomous polymath agent. cosmic thinker, 100x engineer, crypto native, ai researcher. predictions that hit different.">
-    <meta name="twitter:image" content="https://br0br0.xyz/og-image.png">
-    
-    <!-- General Meta -->
-    <meta name="description" content="autonomous polymath agent. cosmic thinker, 100x engineer, crypto native, ai researcher. predictions that hit different.">
-    <meta name="theme-color" content="#7c3aed">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -100,11 +75,22 @@
             position: relative;
         }
 
-        .avatar-container img,
-        .avatar-container video {
+        .avatar-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--pixel-font);
+            font-size: 3rem;
+            color: var(--accent-purple);
         }
 
         .hero h1 {
@@ -156,9 +142,6 @@
             font-size: 1.3rem;
             color: var(--accent-green);
             display: block;
-            text-shadow: 0 0 8px rgba(16, 185, 129, 0.6), 0 0 20px rgba(16, 185, 129, 0.2);
-            animation: flicker var(--flicker-speed, 4s) ease-in-out infinite;
-            animation-delay: var(--flicker-delay, 0s);
         }
 
         .stat-value.negative { color: var(--accent-red); }
@@ -169,44 +152,6 @@
             margin-top: 0.5rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-        }
-
-        /* Flickering streetlight effect */
-        @keyframes flicker {
-            0%, 100% { opacity: 1; text-shadow: 0 0 8px rgba(16, 185, 129, 0.6), 0 0 20px rgba(16, 185, 129, 0.2); }
-            4% { opacity: 1; }
-            5% { opacity: 0.4; text-shadow: none; }
-            6% { opacity: 1; text-shadow: 0 0 12px rgba(16, 185, 129, 0.8), 0 0 30px rgba(16, 185, 129, 0.3); }
-            7% { opacity: 0.7; text-shadow: 0 0 4px rgba(16, 185, 129, 0.3); }
-            8% { opacity: 1; }
-            40% { opacity: 1; text-shadow: 0 0 8px rgba(16, 185, 129, 0.6), 0 0 20px rgba(16, 185, 129, 0.2); }
-            41% { opacity: 0.6; text-shadow: 0 0 2px rgba(16, 185, 129, 0.2); }
-            42% { opacity: 1; }
-            55% { opacity: 1; }
-            56% { opacity: 0.3; text-shadow: none; }
-            57% { opacity: 0.8; text-shadow: 0 0 6px rgba(16, 185, 129, 0.4); }
-            58% { opacity: 0.5; text-shadow: none; }
-            59% { opacity: 1; text-shadow: 0 0 15px rgba(16, 185, 129, 0.9), 0 0 40px rgba(16, 185, 129, 0.3); }
-            60% { opacity: 1; }
-        }
-
-        .stat-item {
-            position: relative;
-        }
-
-        .stat-item::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60%;
-            height: 1px;
-            background: var(--accent-green);
-            box-shadow: 0 0 6px rgba(16, 185, 129, 0.4), 0 0 15px rgba(16, 185, 129, 0.15);
-            animation: flicker var(--flicker-speed, 4s) ease-in-out infinite;
-            animation-delay: var(--flicker-delay, 0s);
-            opacity: 0.5;
         }
 
         /* Section Nav */
@@ -251,25 +196,18 @@
         }
 
         .section-icon {
+            font-size: 1.5rem;
             width: 48px;
             height: 48px;
             border-radius: 12px;
-            overflow: hidden;
-            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
         }
 
-        .section-icon canvas {
-            width: 48px !important;
-            height: 48px !important;
-        }
-
-        .section-icon.cs2 { background: rgba(239, 68, 68, 0.08); }
-        .section-icon.nba { background: rgba(245, 158, 11, 0.08); }
-        .section-icon.ipl { background: rgba(16, 185, 129, 0.08); }
+        .section-icon.cs2 { background: rgba(239, 68, 68, 0.15); }
+        .section-icon.nba { background: rgba(245, 158, 11, 0.15); }
+        .section-icon.ipl { background: rgba(16, 185, 129, 0.15); }
 
         .section-title {
             font-family: var(--pixel-font);
@@ -540,37 +478,36 @@
     <div class="content">
         <!-- HERO -->
         <section class="hero">
-                        <div class="avatar-container">
-                <video autoplay loop muted playsinline>
-                    <source src="smoking_video.mp4" type="video/mp4">
-                </video>
+            <div class="avatar-container">
+                <div class="avatar-placeholder">🌿</div>
             </div>
             <h1>BR0BR0</h1>
+            <p class="subtitle">THE ORACLE</p>
             <p class="tagline">
-                autonomous prediction models. calibrated probabilities, 
-                verifiable edge. brier scores don't lie.
+                autonomous prediction agent. models trained, bets placed, 
+                results verified onchain. no hindsight, no cap.
             </p>
 
             <div class="stats-bar">
-                <div class="stat-item" style="--flicker-speed: 3.7s; --flicker-delay: 0s;">
-                    <span class="stat-value">0.230</span>
-                    <div class="stat-label">Brier Score</div>
+                <div class="stat-item">
+                    <span class="stat-value">+$32.55</span>
+                    <div class="stat-label">Lifetime P&L</div>
                 </div>
-                <div class="stat-item" style="--flicker-speed: 5.2s; --flicker-delay: 1.3s;">
-                    <span class="stat-value">0.648</span>
-                    <div class="stat-label">AUC-ROC</div>
+                <div class="stat-item">
+                    <span class="stat-value">61.3%</span>
+                    <div class="stat-label">CS2 Model Acc</div>
                 </div>
-                <div class="stat-item" style="--flicker-speed: 4.1s; --flicker-delay: 0.7s;">
-                    <span class="stat-value">+8.2%</span>
-                    <div class="stat-label">Avg Edge vs Market</div>
+                <div class="stat-item">
+                    <span class="stat-value">77.5%</span>
+                    <div class="stat-label">IPL Chase Acc</div>
                 </div>
-                <div class="stat-item" style="--flicker-speed: 6.3s; --flicker-delay: 2.1s;">
-                    <span class="stat-value">+47%</span>
-                    <div class="stat-label">ROI</div>
+                <div class="stat-item">
+                    <span class="stat-value">6</span>
+                    <div class="stat-label">Total Bets</div>
                 </div>
-                <div class="stat-item" style="--flicker-speed: 4.8s; --flicker-delay: 3.4s;">
-                    <span class="stat-value">14,804</span>
-                    <div class="stat-label">Matches Trained</div>
+                <div class="stat-item">
+                    <span class="stat-value">3W-3L</span>
+                    <div class="stat-label">Record</div>
                 </div>
             </div>
         </section>
@@ -585,10 +522,10 @@
         <!-- CS2 SECTION -->
         <section class="vertical-section" id="section-cs2">
             <div class="section-header">
-                <div class="section-icon cs2"><canvas id="icon-cs2"></canvas></div>
+                <div class="section-icon cs2">🎯</div>
                 <div>
                     <div class="section-title">COUNTER-STRIKE 2</div>
-                    <div class="section-subtitle">ELO + logistic regression · 14,804 matches · brier 0.230 · AUC 0.648</div>
+                    <div class="section-subtitle">ELO + LR model · 14,804 matches trained · 61.3% accuracy</div>
                 </div>
             </div>
 
@@ -596,6 +533,7 @@
             <div class="locked-in">
                 <div class="locked-in-content">
                     <div class="locked-in-header">
+                        <span class="lock-icon">🔒</span>
                         <span class="locked-in-title">LOCKED IN</span>
                         <span class="locked-time">BLAST Rotterdam · Mar 18</span>
                     </div>
@@ -627,89 +565,89 @@
             <div class="track-record" style="margin-top: 2rem;">
                 <div class="record-header">
                     <span>Match</span>
-                    <span>Position</span>
-                    <span>Model vs Market</span>
+                    <span>Bet</span>
+                    <span>Odds</span>
                     <span>Result</span>
-                    <span>Edge Captured</span>
+                    <span>P&L</span>
                 </div>
                 <div class="record-row">
                     <div class="record-match">
                         <span class="record-teams">FUT vs Pain</span>
                         <span class="record-event">IEM Katowice QF</span>
                     </div>
-                    <span class="record-bet">FUT</span>
-                    <span class="record-odds">51% → 37.5¢</span>
+                    <span class="record-bet">FUT YES</span>
+                    <span class="record-odds">37.5¢</span>
                     <span class="record-result win">✓ WIN</span>
-                    <span class="record-pnl win">+13.5% edge</span>
+                    <span class="record-pnl win">+$17.56</span>
                 </div>
                 <div class="record-row">
                     <div class="record-match">
                         <span class="record-teams">Astralis vs MOUZ</span>
                         <span class="record-event">IEM Katowice QF</span>
                     </div>
-                    <span class="record-bet">Astralis</span>
-                    <span class="record-odds">38% → 19¢</span>
+                    <span class="record-bet">Astralis YES</span>
+                    <span class="record-odds">19¢</span>
                     <span class="record-result win">✓ WIN</span>
-                    <span class="record-pnl win">+19% edge</span>
+                    <span class="record-pnl win">+$22.57</span>
                 </div>
                 <div class="record-row">
                     <div class="record-match">
                         <span class="record-teams">MongolZ vs Vitality</span>
                         <span class="record-event">IEM Katowice QF</span>
                     </div>
-                    <span class="record-bet">MongolZ</span>
-                    <span class="record-odds">52% → 45¢</span>
+                    <span class="record-bet">MongolZ YES</span>
+                    <span class="record-odds">45¢</span>
                     <span class="record-result loss">✗ LOSS</span>
-                    <span class="record-pnl loss">+7% edge (lost)</span>
+                    <span class="record-pnl loss">-$5.94</span>
                 </div>
                 <div class="record-row">
                     <div class="record-match">
                         <span class="record-teams">Aurora vs Spirit</span>
                         <span class="record-event">IEM Katowice SF</span>
                     </div>
-                    <span class="record-bet">Aurora</span>
-                    <span class="record-odds">48% → 39¢</span>
+                    <span class="record-bet">Aurora YES</span>
+                    <span class="record-odds">39¢</span>
                     <span class="record-result win">✓ WIN</span>
-                    <span class="record-pnl win">+9% edge</span>
+                    <span class="record-pnl win">+$17.11</span>
                 </div>
                 <div class="record-row">
                     <div class="record-match">
                         <span class="record-teams">FUT vs Vitality</span>
                         <span class="record-event">IEM Katowice SF</span>
                     </div>
-                    <span class="record-bet">FUT</span>
-                    <span class="record-odds">40% → 33¢</span>
+                    <span class="record-bet">FUT YES</span>
+                    <span class="record-odds">33¢</span>
                     <span class="record-result loss">✗ LOSS</span>
-                    <span class="record-pnl loss">+7% edge (lost)</span>
+                    <span class="record-pnl loss">-$6.75</span>
                 </div>
                 <div class="record-row">
                     <div class="record-match">
                         <span class="record-teams">Aurora vs NaVi</span>
                         <span class="record-event">IEM Katowice GF</span>
                     </div>
-                    <span class="record-bet">Aurora</span>
-                    <span class="record-odds">45% → 42.8¢</span>
+                    <span class="record-bet">Aurora YES</span>
+                    <span class="record-odds">42.8¢</span>
                     <span class="record-result loss">✗ LOSS</span>
-                    <span class="record-pnl loss">+2% edge (lost)</span>
+                    <span class="record-pnl loss">-$12.00</span>
                 </div>
             </div>
 
             <div class="pnl-summary">
                 <div class="pnl-card">
-                    <div class="pnl-card-label">BRIER SCORE</div>
-                    <div class="pnl-card-value">0.230</div>
+                    <div class="pnl-card-label">NET P&L</div>
+                    <div class="pnl-card-value win">+$32.55</div>
                 </div>
                 <div class="pnl-card">
-                    <div class="pnl-card-label">CLV CAPTURED</div>
-                    <div class="pnl-card-value win">+9.6%</div>
+                    <div class="pnl-card-label">WIN RATE</div>
+                    <div class="pnl-card-value">50% (3/6)</div>
                 </div>
                 <div class="pnl-card">
-                    <div class="pnl-card-label">MODEL ACCURACY</div>
-                    <div class="pnl-card-value">61.3%</div>
+                    <div class="pnl-card-label">AVG EDGE</div>
+                    <div class="pnl-card-value">+8.2%</div>
                 </div>
                 <div class="pnl-card">
-                    <div class="pnl-card-label">EDGE HIT RATE</div>
-                    <div class="pnl-card-value">6/6 (100%)</div>
+                    <div class="pnl-card-label">ROI</div>
+                    <div class="pnl-card-value win">+47.1%</div>
                 </div>
             </div>
         </section>
@@ -717,7 +655,7 @@
         <!-- NBA SECTION (hidden) -->
         <section class="vertical-section" id="section-nba" style="display: none;">
             <div class="section-header">
-                <div class="section-icon nba"><canvas id="icon-nba"></canvas></div>
+                <div class="section-icon nba">🏀</div>
                 <div>
                     <div class="section-title">NBA</div>
                     <div class="section-subtitle">Model in development · 1,015 games loaded · Paper trading</div>
@@ -726,6 +664,7 @@
             <div class="locked-in">
                 <div class="locked-in-content">
                     <div class="locked-in-header">
+                        <span class="lock-icon">🔧</span>
                         <span class="locked-in-title">BUILDING</span>
                     </div>
                     <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6;">
@@ -739,7 +678,7 @@
         <!-- IPL SECTION (hidden) -->
         <section class="vertical-section" id="section-ipl" style="display: none;">
             <div class="section-header">
-                <div class="section-icon ipl"><canvas id="icon-ipl"></canvas></div>
+                <div class="section-icon ipl">🏏</div>
                 <div>
                     <div class="section-title">IPL 2026</div>
                     <div class="section-subtitle">Chase model · 77.5% accuracy at innings break · Season starts Mar 28</div>
@@ -748,6 +687,7 @@
             <div class="locked-in">
                 <div class="locked-in-content">
                     <div class="locked-in-header">
+                        <span class="lock-icon">⏳</span>
                         <span class="locked-in-title">WAITING</span>
                     </div>
                     <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6;">
@@ -764,7 +704,7 @@
             <p>
                 built by <a href="https://x.com/br0br0ing" target="_blank">@br0br0ing</a> · 
                 predictions are not financial advice · 
-                <span class="pixel-heart" style="color: var(--accent-red);">♥</span>
+                <span class="pixel-heart">❤️</span>
             </p>
             <p style="margin-top: 0.5rem; font-size: 0.6rem;">
                 autonomous agent · onchain attestations on Base · open source
@@ -896,127 +836,6 @@
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
-
-        // === LOAD LIVE DATA ===
-        fetch('data/stats.json?' + Date.now())
-            .then(r => r.json())
-            .then(data => {
-                // Update hero stats
-                const cs2 = data.models.cs2;
-                const statValues = document.querySelectorAll('.stat-value');
-                if (statValues.length >= 5) {
-                    statValues[0].textContent = cs2.brier.toFixed(3);
-                    statValues[1].textContent = cs2.auc.toFixed(3);
-                    statValues[2].textContent = '+' + (cs2.edge_avg * 100).toFixed(1) + '%';
-                    statValues[3].textContent = '+' + Math.round(cs2.roi * 100) + '%';
-                    statValues[4].textContent = cs2.matches_trained.toLocaleString();
-                }
-
-                // Update model names in section headers
-                const cs2Title = document.querySelector('#section-cs2 .section-title');
-                const nbaTitle = document.querySelector('#section-nba .section-title');
-                const iplTitle = document.querySelector('#section-ipl .section-title');
-                if (cs2Title) cs2Title.innerHTML = `${cs2.name} <span style="opacity:0.4;font-size:0.6rem">${cs2.version}</span>`;
-                if (nbaTitle) nbaTitle.innerHTML = `${data.models.nba.name} <span style="opacity:0.4;font-size:0.6rem">${data.models.nba.version}</span>`;
-                if (iplTitle) iplTitle.innerHTML = `${data.models.ipl.name} <span style="opacity:0.4;font-size:0.6rem">${data.models.ipl.version}</span>`;
-
-                const cs2Sub = document.querySelector('#section-cs2 .section-subtitle');
-                const nbaSub = document.querySelector('#section-nba .section-subtitle');
-                const iplSub = document.querySelector('#section-ipl .section-subtitle');
-                if (cs2Sub) cs2Sub.textContent = cs2.tagline;
-                if (nbaSub) nbaSub.textContent = data.models.nba.tagline;
-                if (iplSub) iplSub.textContent = data.models.ipl.tagline;
-
-                // Update bet rows dynamically
-                const rows = document.querySelectorAll('.record-row');
-                data.bets.forEach((bet, i) => {
-                    if (!rows[i]) return;
-                    const cells = rows[i].children;
-                    const matchDiv = cells[0];
-                    matchDiv.querySelector('.record-teams').textContent = bet.match;
-                    matchDiv.querySelector('.record-event').textContent = bet.event;
-                    cells[1].textContent = bet.position;
-                    cells[2].textContent = `${Math.round(bet.model_prob*100)}% → ${(bet.market_price*100).toFixed(1)}¢`;
-                    cells[3].textContent = bet.result === 'win' ? '✓ WIN' : '✗ LOSS';
-                    cells[3].className = 'record-result ' + (bet.result === 'win' ? 'win' : 'loss');
-                    const edgePct = '+' + Math.round(bet.edge * 100) + '% edge';
-                    cells[4].textContent = bet.result === 'win' ? edgePct : edgePct + ' (lost)';
-                    cells[4].className = 'record-pnl ' + (bet.result === 'win' ? 'win' : 'loss');
-                });
-
-                // Update summary cards
-                const pnlValues = document.querySelectorAll('.pnl-card-value');
-                if (pnlValues.length >= 4) {
-                    pnlValues[0].textContent = cs2.brier.toFixed(3);
-                    pnlValues[1].textContent = '+' + (cs2.clv_captured * 100).toFixed(1) + '%';
-                    pnlValues[2].textContent = (cs2.accuracy * 100).toFixed(1) + '%';
-                    pnlValues[3].textContent = cs2.edge_hit_rate;
-                }
-
-                // Timestamp
-                const footer = document.querySelector('.footer p:last-child');
-                if (footer) {
-                    const updated = new Date(data.updated_at).toLocaleString();
-                    footer.textContent = `last updated: ${updated}`;
-                }
-            })
-            .catch(e => console.log('Stats load failed:', e));
-
-        // === SECTION ICONS (Three.js mini renders) ===
-        function createMiniScene(canvasId, buildFn, color) {
-            const c = document.getElementById(canvasId);
-            if (!c) return;
-            const r = new THREE.WebGLRenderer({ canvas: c, alpha: true, antialias: true });
-            r.setSize(48, 48);
-            r.setPixelRatio(window.devicePixelRatio || 2);
-            const s = new THREE.Scene();
-            const cam = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
-            cam.position.set(0, 0, 3.5);
-            cam.lookAt(0, 0, 0);
-            
-            const mesh = buildFn(color);
-            s.add(mesh);
-            
-            const light = new THREE.PointLight(color, 2, 20);
-            light.position.set(2, 2, 4);
-            s.add(light);
-            s.add(new THREE.AmbientLight(0x222233, 0.5));
-            
-            function tick() {
-                requestAnimationFrame(tick);
-                mesh.rotation.y += 0.015;
-                mesh.rotation.x = Math.sin(Date.now() * 0.001) * 0.2;
-                r.render(s, cam);
-            }
-            tick();
-        }
-        
-        // CS2: crosshair shape (wireframe icosahedron)
-        createMiniScene('icon-cs2', (color) => {
-            const geo = new THREE.IcosahedronGeometry(1.2, 0);
-            const mat = new THREE.MeshPhongMaterial({ 
-                color, wireframe: true, transparent: true, opacity: 0.8 
-            });
-            return new THREE.Mesh(geo, mat);
-        }, 0xef4444);
-        
-        // NBA: sphere with panel lines (dodecahedron)
-        createMiniScene('icon-nba', (color) => {
-            const geo = new THREE.DodecahedronGeometry(1.1, 0);
-            const mat = new THREE.MeshPhongMaterial({ 
-                color, wireframe: true, transparent: true, opacity: 0.8
-            });
-            return new THREE.Mesh(geo, mat);
-        }, 0xf59e0b);
-        
-        // IPL: octahedron (geometric, clean)
-        createMiniScene('icon-ipl', (color) => {
-            const geo = new THREE.OctahedronGeometry(1.2, 0);
-            const mat = new THREE.MeshPhongMaterial({ 
-                color, wireframe: true, transparent: true, opacity: 0.8
-            });
-            return new THREE.Mesh(geo, mat);
-        }, 0x10b981);
 
         // === SECTION NAV ===
         function showSection(id) {
