@@ -1,0 +1,21 @@
+{
+  "model": {
+    "name": "NIGHTHAWK v3",
+    "type": "XGBoost + LogReg Ensemble",
+    "experiments": 17351,
+    "seasons_validated": 7,
+    "accuracy": 0.703,
+    "high_conf_accuracy": 0.774,
+    "brier": 0.1856
+  },
+  "upcoming": [
+    {"match": "RCB vs SRH", "date": "2026-03-28", "venue": "Chinnaswamy", "market_url": "https://polymarket.com/sports/cricipl/cricipl-roy-sun-2026-03-28"}
+  ],
+  "sub_models": [
+    {"name": "Chase", "status": "DEPLOY", "brier": 0.1856},
+    {"name": "Most Sixes", "status": "PAPER", "brier": 0.2249},
+    {"name": "Top Batter", "status": "PAPER", "brier": 0.1127},
+    {"name": "Toss+Match", "status": "KILLED", "brier": null}
+  ],
+  "track_record": []
+}
