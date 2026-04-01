@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-03-31T08:12:31.486836+00:00",
+  "updated_at": "2026-04-01T08:00:04.438441+00:00",
   "ipl": {
     "model_name": "NIGHTHAWK v3",
-    "experiments": 54750,
+    "experiments": 69077,
     "seasons_validated": 7,
     "accuracy": 0.703,
     "high_conf_accuracy": 0.774,
