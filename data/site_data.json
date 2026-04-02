@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-04-01T08:00:04.438441+00:00",
+  "updated_at": "2026-04-02T08:04:33.905173+00:00",
   "ipl": {
     "model_name": "NIGHTHAWK v3",
-    "experiments": 69077,
+    "experiments": 74041,
     "seasons_validated": 7,
     "accuracy": 0.703,
     "high_conf_accuracy": 0.774,
@@ -508,6 +508,246 @@
         "side": "underdog_covers",
         "fill_price": 0.54,
         "model_prob": 0.5808,
+        "result": "loss"
+      },
+      {
+        "date": "2026-03-31",
+        "match": "CHA @ BKN",
+        "side": "underdog_covers",
+        "fill_price": 0.47,
+        "model_prob": 0.6492,
+        "result": "loss"
+      },
+      {
+        "date": "2026-03-31",
+        "match": "CHA @ BKN",
+        "side": "underdog_covers",
+        "fill_price": 0.55,
+        "model_prob": 0.7303,
+        "result": "loss"
+      },
+      {
+        "date": "2026-03-31",
+        "match": "CHA @ BKN",
+        "side": "underdog_covers",
+        "fill_price": 0.51,
+        "model_prob": 0.7043,
+        "result": "loss"
+      },
+      {
+        "date": "2026-03-31",
+        "match": "PHX @ ORL",
+        "side": "favorite_covers",
+        "fill_price": 0.47,
+        "model_prob": 0.5208,
+        "result": "win"
+      },
+      {
+        "date": "2026-03-31",
+        "match": "PHX @ ORL",
+        "side": "favorite_covers",
+        "fill_price": 0.5,
+        "model_prob": 0.5514,
+        "result": "win"
+      },
+      {
+        "date": "2026-03-31",
+        "match": "TOR @ DET",
+        "side": "favorite_covers",
+        "fill_price": 0.56,
+        "model_prob": 0.6513,
+        "result": "win"
+      },
+      {
+        "date": "2026-03-31",
+        "match": "POR @ LAC",
+        "side": "underdog_covers",
+        "fill_price": 0.52,
+        "model_prob": 0.5586,
+        "result": "win"
+      },
+      {
+        "date": "2026-03-31",
+        "match": "POR @ LAC",
+        "side": "underdog_covers",
+        "fill_price": 0.47,
+        "model_prob": 0.5281,
+        "result": "win"
+      },
+      {
+        "date": "2026-03-31",
+        "match": "CLE @ LAL",
+        "side": "favorite_covers",
+        "fill_price": 0.51,
+        "model_prob": 0.5441,
+        "result": "win"
+      },
+      {
+        "date": "2026-03-31",
+        "match": "CLE @ LAL",
+        "side": "favorite_covers",
+        "fill_price": 0.48,
+        "model_prob": 0.5135,
+        "result": "win"
+      },
+      {
+        "date": "2026-03-31",
+        "match": "CHA @ BKN",
+        "side": "underdog_covers",
+        "fill_price": 0.52,
+        "model_prob": 0.7551,
+        "result": "loss"
+      },
+      {
+        "date": "2026-03-31",
+        "match": "PHX @ ORL",
+        "side": "favorite_covers",
+        "fill_price": 0.53,
+        "model_prob": 0.5816,
+        "result": "win"
+      },
+      {
+        "date": "2026-03-31",
+        "match": "POR @ LAC",
+        "side": "underdog_covers",
+        "fill_price": 0.55,
+        "model_prob": 0.5888,
+        "result": "win"
+      },
+      {
+        "date": "2026-03-31",
+        "match": "TOR @ DET",
+        "side": "favorite_covers",
+        "fill_price": 0.5,
+        "model_prob": 0.6224,
+        "result": "win"
+      },
+      {
+        "date": "2026-04-01",
+        "match": "PHI @ WAS",
+        "side": "underdog_covers",
+        "fill_price": 0.55,
+        "model_prob": 0.7679,
+        "result": "loss"
+      },
+      {
+        "date": "2026-04-01",
+        "match": "ATL @ ORL",
+        "side": "underdog_covers",
+        "fill_price": 0.56,
+        "model_prob": 0.6542,
+        "result": "loss"
+      },
+      {
+        "date": "2026-04-01",
+        "match": "BOS @ MIA",
+        "side": "underdog_covers",
+        "fill_price": 0.53,
+        "model_prob": 0.5999,
+        "result": "loss"
+      },
+      {
+        "date": "2026-04-01",
+        "match": "BOS @ MIA",
+        "side": "underdog_covers",
+        "fill_price": 0.49,
+        "model_prob": 0.5699,
+        "result": "loss"
+      },
+      {
+        "date": "2026-04-01",
+        "match": "IND @ CHI",
+        "side": "favorite_covers",
+        "fill_price": 0.48,
+        "model_prob": 0.5452,
+        "result": "loss"
+      },
+      {
+        "date": "2026-04-01",
+        "match": "IND @ CHI",
+        "side": "favorite_covers",
+        "fill_price": 0.52,
+        "model_prob": 0.5755,
+        "result": "loss"
+      },
+      {
+        "date": "2026-04-01",
+        "match": "NYK @ MEM",
+        "side": "underdog_covers",
+        "fill_price": 0.52,
+        "model_prob": 0.6933,
+        "result": "win"
+      },
+      {
+        "date": "2026-04-01",
+        "match": "NYK @ MEM",
+        "side": "underdog_covers",
+        "fill_price": 0.55,
+        "model_prob": 0.7198,
+        "result": "win"
+      },
+      {
+        "date": "2026-04-01",
+        "match": "DEN @ UTA",
+        "side": "underdog_covers",
+        "fill_price": 0.53,
+        "model_prob": 0.8132,
+        "result": "win"
+      },
+      {
+        "date": "2026-04-01",
+        "match": "ATL @ ORL",
+        "side": "underdog_covers",
+        "fill_price": 0.54,
+        "model_prob": 0.6254,
+        "result": "loss"
+      },
+      {
+        "date": "2026-04-01",
+        "match": "ATL @ ORL",
+        "side": "underdog_covers",
+        "fill_price": 0.5,
+        "model_prob": 0.5959,
+        "result": "loss"
+      },
+      {
+        "date": "2026-04-01",
+        "match": "DEN @ UTA",
+        "side": "underdog_covers",
+        "fill_price": 0.49,
+        "model_prob": 0.7918,
+        "result": "win"
+      },
+      {
+        "date": "2026-04-01",
+        "match": "IND @ CHI",
+        "side": "favorite_covers",
+        "fill_price": 0.53,
+        "model_prob": 0.6054,
+        "result": "loss"
+      },
+      {
+        "date": "2026-04-01",
+        "match": "NYK @ MEM",
+        "side": "underdog_covers",
+        "fill_price": 0.53,
+        "model_prob": 0.6658,
+        "result": "win"
+      },
+      {
+        "date": "2026-04-01",
+        "match": "PHI @ WAS",
+        "side": "underdog_covers",
+        "fill_price": 0.52,
+        "model_prob": 0.7438,
+        "result": "loss"
+      },
+      {
+        "date": "2026-04-01",
+        "match": "PHI @ WAS",
+        "side": "underdog_covers",
+        "fill_price": 0.48,
+        "model_prob": 0.7185,
         "result": "loss"
       }
     ]
